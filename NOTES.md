@@ -34,17 +34,25 @@ make
 ## Configure domain name
 create  config/env domain in do console
 delegate subdomain in main domain registrar (dyn in my case to DO)
-# Find image id
+## Find image id
 
 ```
 curl -X GET --silent "https://api.digitalocean.com/v2/images?per_page=999" -H "Authorization: Bearer $(<~/.do-token)" |jq '.'|less
 ```
-# Build infrastructure
+## Build infrastructure
 image id from above (look for id of snapshot listed in DO console)
 ```
 cd ../tf
 cp ~/.ssh/id_rsa.pub id_rsa.pub
 ./terraform apply -var cluster_state=new -var image=22244571
+
+
+```
+## Do stuff
+
+ssh
+```
+cssh -l root $(curl -X GET -H "Content-Type: application/json" -H "Authorization: Bearer $(< ~/.do-token) " "https://api.digitalocean.com/v2/droplets"|jq -r '.droplets[].networks.v4[] | select( .type == "public").ip_address')
 ```
 ## Destroy infrastructure
 ```
