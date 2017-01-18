@@ -46,3 +46,7 @@ cd ../tf
 cp ~/.ssh/id_rsa.pub id_rsa.pub
 ./terraform apply -var cluster_state=new -var image=22244571
 ```
+## Destroy infrastructure
+```
+./terraform destroy -var cluster_state=new -var image=22244571
+````
