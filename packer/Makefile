@@ -11,6 +11,7 @@ all: check_dirty
 		-var region=$$REGION \
 		-var config=$(CONFIG) \
 		-var build=0 \
+		-var ssh_username=root \
 		-machine-readable \
 		base.json
 
