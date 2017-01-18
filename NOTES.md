@@ -19,11 +19,27 @@ IP_INT_PREFIX=10.130
 ```
 vi config/env
 ```
+### change certificate parameters
+```
+vi config/ca/ca-csr.json
+
+-            "C": "DE",
+-            "ST": "Berlin",
+-            "L": "Berlin"
++            "C": "CA",
++            "ST": "British Columbia",
++            "L": "Vancouver"
+```
+
 ## Install tinc, cfssl, packer
 ```
 sudo pacman -Syyu tinc
 yaourt -S cfssl --noconfirm
 yaort -S packer-io --noconfirm
+```
+## Generate keys and certificates
+```
+./mk_credentials
 ```
 ## Create the base image
 ensure ssh_username is configured in base.json and Makefile
@@ -32,13 +48,17 @@ make -C packer
 ```
 ## Configure domain name
 create  config/env domain in DO console
+
 delegate subdomain in main domain registrar (dyn in my case to DO)
+
 to delegate the subdomain add ns entries for the subdomain to the main domain for the internet domain provider and any internal dns server
+
 e.g.
+```
 int.netremedies.ca.	876	IN	NS	ns2.digitalocean.com.
 int.netremedies.ca.	876	IN	NS	ns3.digitalocean.com.
 int.netremedies.ca.	876	IN	NS	ns1.digitalocean.com.
-
+```
 DO is now responsible for names under .int.netremedies.ca
 ## Find image id
 ### image id from packer looks like
@@ -64,7 +84,7 @@ ssh
 ```
 cssh -l root $(curl -X GET -H "Content-Type: application/json" -H "Authorization: Bearer $(< ~/.do-token) " "https://api.digitalocean.com/v2/droplets"|jq -r '.droplets[].networks.v4[] | select( .type == "public").ip_address')
 ```
-tinc fails to bring up vpn overlay network
+tinc fails to bring up vpn overlay network - probably due to tinc and cfssl not installed localy before ./mk_credentials run
 
 ## Destroy infrastructure
 ```
