@@ -44,7 +44,7 @@ image id from above (look for id of snapshot listed in DO console)
 ```
 cd ../tf
 cp ~/.ssh/id_rsa.pub id_rsa.pub
-./terraform apply -var cluster_state=new -var image=22244571
+./terraform apply -var cluster_state=new -var image=$(curl -X GET --silent "https://api.digitalocean.com/v2/images?per_page=999" -H "Authorization: Bearer $(<~/.do-token)" |jq '.images[] | select(.name|test("default-master-")).id')
 
 
 ```
@@ -56,6 +56,6 @@ cssh -l root $(curl -X GET -H "Content-Type: application/json" -H "Authorization
 ```
 ## Destroy infrastructure
 ```
-./terraform destroy -var cluster_state=new -var image=22244571
+/terraform destroy -var cluster_state=new -var image=$(curl -X GET --silent "https://api.digitalocean.com/v2/images?per_page=999" -H "Authorization: Bearer $(<~/.do-token)" |jq '.images[] | select(.name|test("default-master-")).id')
 ```
 delete the image too in DO console
