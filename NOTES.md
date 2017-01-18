@@ -86,6 +86,8 @@ cssh -l root $(curl -X GET -H "Content-Type: application/json" -H "Authorization
 ```
 tinc fails to bring up vpn overlay network - probably due to tinc and cfssl not installed localy before ./mk_credentials run
 
+tested upto creating skydns :)
+
 ## Destroy infrastructure
 ```
 /terraform destroy -var cluster_state=new -var image=$(curl -X GET --silent "https://api.digitalocean.com/v2/images?per_page=999" -H "Authorization: Bearer $(<~/.do-token)" |jq '.images[] | select(.name|test("default-master-")).id')
