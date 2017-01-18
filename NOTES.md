@@ -49,4 +49,5 @@ cp ~/.ssh/id_rsa.pub id_rsa.pub
 ## Destroy infrastructure
 ```
 ./terraform destroy -var cluster_state=new -var image=22244571
-````
+```
+delete the image too in DO console
