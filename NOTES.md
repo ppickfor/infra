@@ -33,6 +33,13 @@ make -C packer
 ## Configure domain name
 create  config/env domain in DO console
 delegate subdomain in main domain registrar (dyn in my case to DO)
+to delegate the subdomain add ns entries for the subdomain to the main domain for the internet domain provider and any internal dns server
+e.g.
+int.netremedies.ca.	876	IN	NS	ns2.digitalocean.com.
+int.netremedies.ca.	876	IN	NS	ns3.digitalocean.com.
+int.netremedies.ca.	876	IN	NS	ns1.digitalocean.com.
+
+DO is now responsible for names under .int.netremedies.ca
 ## Find image id
 ### image id from packer looks like
 
