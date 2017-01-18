@@ -3,7 +3,7 @@
 ```
 git clone
 ```
-create do account
+create DO account
 apply promocode heresthething
 create read-write token
 ```
@@ -33,7 +33,7 @@ make
 ```
 ## Configure domain name
 create  config/env domain in do console
-delegate subdomain is main domain registrar (dyn in my case to DO)
+delegate subdomain in main domain registrar (dyn in my case to DO)
 # Find image id
 
 ```
