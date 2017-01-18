@@ -1,4 +1,5 @@
 id_rsa
+tf/id_rsa.pub
 rsa_key.priv
 server-key.pem
 ca-key.pem
