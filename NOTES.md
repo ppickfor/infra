@@ -28,14 +28,17 @@ yaort -S packer-io --noconfirm
 ## Create the base image
 ensure ssh_username is configured in base.json and Makefile
 ```
-cd packer
-make
+make -C packer
 ```
 ## Configure domain name
 create  config/env domain in DO console
 delegate subdomain in main domain registrar (dyn in my case to DO)
 ## Find image id
+### image id from packer looks like
 
+`484723386,digitalocean,artifact,0,id,sfo1:`**22253946**
+
+### list all images
 ```
 curl -X GET --silent "https://api.digitalocean.com/v2/images?per_page=999" -H "Authorization: Bearer $(<~/.do-token)" |jq '.'|less
 ```
